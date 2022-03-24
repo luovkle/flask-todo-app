@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}Delete task{% endblock %}
+
+{% block main %}
+<article class="grid">
+  <hgroup>
+    <h1>Delete task</h1>
+    <h2>Have you completed this task?.</h2>
+  </hgroup>
+  <form method="post">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <button type="submit" class="outline">Delete</button>
+  </form>
+</article>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}ToDoApp{% endblock %}
+
+{% block main %}
+{% if tasks %}
+<h1>Tasks list</h1>
+{% else %}
+<h1>No tasks</h1>
+{% endif %}
+{% for task in tasks %}
+<article>
+  <hgroup>
+    <h1>{{ task.title }}</h1>
+    <h2># {{ task.id }}</h2>
+  </hgroup>
+  <p>{{ task.description }}</p>
+  <a href="{{ url_for("private.update", task_title=task.title) }}" role="button">Update</a>
+  <a href="{{ url_for("private.delete", task_title=task.title) }}" role="button" class="outline">delete</a>
+</article>
+{% endfor %}
+{% endblock %}

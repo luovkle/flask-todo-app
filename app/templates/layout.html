@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pico.min.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+
+    <!-- Nav -->
+    <nav class="container-fluid">
+      <ul>
+        <li><a href="{{ url_for("private.index") }}" class="contrast"><strong>ToDoApp</strong></a></li>
+      </ul>
+      <ul>
+        {% if g.user %}
+        <li><a href="{{ url_for("private.create") }}" role="button">New task</a></li>
+        <li>
+          <details role="list" dir="rtl">
+            <summary aria-haspopup="listbox" role="link" class="secondary">{{ g.user["username"] }}</summary>
+            <ul role="listbox">
+              <li><a href="{{ url_for("auth.logout") }}">Log out</a></li>
+            </ul>
+          </details>
+        </li>
+        {% else %}
+        <li><a href="{{ url_for("auth.login") }}" class="contrast">Log in</a></li>
+        <li><a href="{{ url_for("auth.signup") }}" role="button">Sign up</a></li>
+        {% endif %}
+      </ul>
+    </nav><!-- ./ Nav -->
+
+    <!-- Main -->
+    <main class="container">
+      {% block main %}{% endblock %}
+    </main><!-- ./ Main -->
+
+  </body>
+</html>

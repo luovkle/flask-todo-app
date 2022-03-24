@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block main %}
+<article class="grid">
+  <div>
+    <hgroup>
+      <h1>Log in</h1>
+      <h2>Log into Newfractal.</h2>
+    </hgroup>
+    <form method="post">
+      <input name="username" type="text" placeholder="Username" required><br>
+      <input name="password" type="password" placeholder="Password" required><br>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+      <button type="submit"><strong>Log in</strong></button>
+    </form>
+  </div>
+</article>
+{% endblock %}

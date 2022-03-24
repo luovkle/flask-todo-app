@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Update task{% endblock %}
+
+{% block main %}
+<article class="grid">
+  <hgroup>
+    <h1>Update task</h1>
+    <h2>What would you like to improve in the task?.</h2>
+  </hgroup>
+  <form method="post">
+    <input type="text" name="new_title" placeholder="New title" required>
+    <input type="text" name="new_description" placeholder="New description" required>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <button type="submit">Update</button>
+  </form>
+</article>
+{% endblock %}

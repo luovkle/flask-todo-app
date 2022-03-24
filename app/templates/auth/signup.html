@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block main %}
+<article class="grid">
+  <div>
+    <hgroup>
+      <h1>Sign up</h1>
+      <h2>It's easy and fast.</h2>
+    </hgroup>
+    <form method="post">
+      <input name="username" type="text" placeholder="Username" required><br>
+      <input name="email" type="text" placeholder="Email" required><br>
+      <input name="password" type="password" placeholder="Password" required><br>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+      <button type="submit"><strong>Sign up</strong></button>
+    </form>
+  </div>
+</article>
+{% endblock %}
