@@ -1,11 +1,21 @@
 import os
 from secrets import token_urlsafe
 
-from flask import Flask
+from flask import Flask, render_template
 
 from app import db
 from app.routes.auth import auth_bp
 from app.routes.private import private_bp
+
+
+def register_error_handlers(app):
+    @app.errorhandler(500)
+    def error_500_handler(err):
+        return render_template("error/500.html"), 500
+
+    @app.errorhandler(404)
+    def error_404_handler(err):
+        return render_template("error/404.html"), 404
 
 
 def create_app():
@@ -22,4 +32,5 @@ def create_app():
     db.init_app(app)
     app.register_blueprint(auth_bp)
     app.register_blueprint(private_bp)
+    register_error_handlers(app)
     return app
