@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, g, request, flash, redirect, url_for
+from flask import Blueprint, render_template, g, request, flash, redirect, url_for, abort
 
 from app.routes.auth import login_required
 from app.crud.crud_task import crud_task
@@ -52,7 +52,13 @@ def update(task_title):
             if not err:
                 return redirect(url_for("private.index"))
         flash(err)
-    return render_template("private/update.html")
+    db = get_db()
+    task = crud_task.read(db, g.user["id"], task_title)
+    if not task:
+        abort(404)
+    return render_template(
+        "private/update.html", title=task["title"], description=task["description"]
+    )
 
 
 @private_bp.route("/<string:task_title>/delete", methods=["GET", "POST"])
