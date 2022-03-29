@@ -70,4 +70,8 @@ def delete(task_title):
         if not err:
             return redirect(url_for("private.index"))
         flash(err)
+    db = get_db()
+    task = crud_task.read(db, g.user["id"], task_title)
+    if not task:
+        abort(404)
     return render_template("private/delete.html")
