@@ -56,6 +56,10 @@ class CRUDTask:
                 return tasks
 
     def update(self, conn, owner_id, current_title, new_title, new_description):
+        if len(new_title) > 32:
+            return "Maximum length of the title is 32 characters"
+        elif len(new_description) > 128:
+            return "Maximum length of the description is 128 characters"
         task = self.__get_by_title(conn, current_title)
         if not task:
             return "Task does not exist"
