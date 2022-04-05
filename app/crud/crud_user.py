@@ -1,6 +1,8 @@
 import psycopg2.extras
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from app.utils import check_email
+
 
 class CRUDUser:
     def __get_by_username(self, conn, username):
@@ -23,6 +25,8 @@ class CRUDUser:
 
     def create(self, conn, username, email, password):
         with conn.cursor() as cur:
+            if not check_email(email):
+                return "Not a valid email address"
             if self.__get_by_username(conn, username):
                 return "Username unavailable"
             elif self.__get_by_email(conn, email):
