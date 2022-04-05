@@ -1,13 +1,47 @@
 # How to use
 
-## Get code
+## With docker-compose
+
+### Get code
 
 ```sh
 git clone https://github.com/luovkle/flask-todo-app.git
 cd flask-todo-app
 ```
 
-## Run postgres
+### Install dependencies in a virtual environment
+
+Example with pip and venv.
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+pip install -r config_requirements.txt
+```
+
+### Run the configuration wizard
+
+```sh
+chmod +x config.py
+./config.py
+```
+
+### Lifting containers
+
+```sh
+docker-compose up -d
+```
+
+## Manually
+
+### Get code
+
+```sh
+git clone https://github.com/luovkle/flask-todo-app.git
+cd flask-todo-app
+```
+
+### Run postgres
 
 Example with docker.
 
@@ -15,7 +49,7 @@ Example with docker.
 docker run --rm -d -p 5432:5432 -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=app postgres:13.3-alpine
 ```
 
-## Install dependencies in a virtual environment
+### Install dependencies in a virtual environment
 
 Example with pip and venv.
 
@@ -25,7 +59,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Export environment variables
+### Export environment variables
 
 Example with bash/zsh shell.
 
@@ -38,13 +72,13 @@ export FLASK_DATABASE_PASSWORD="password"
 export FLASK_DATABASE="app"
 ```
 
-## initialize database
+### initialize database
 
 ```sh
 flask init-db
 ```
 
-## Running the server
+### Running the server
 
 ```sh
 flask run
