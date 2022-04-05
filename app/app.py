@@ -22,10 +22,10 @@ def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY=token_urlsafe(64),
-        DB=os.getenv("FLASK_DATABASE"),
-        DB_HOST=os.getenv("FLASK_DATABASE_HOST"),
-        DB_USER=os.getenv("FLASK_DATABASE_USER"),
-        DB_PASSWORD=os.getenv("FLASK_DATABASE_PASSWORD"),
+        DB=os.getenv("POSTGRES_DB"),
+        DB_HOST=os.getenv("POSTGRES_SERVER"),
+        DB_USER=os.getenv("POSTGRES_USER"),
+        DB_PASSWORD=os.getenv("POSTGRES_PASSWORD"),
     )
     app.jinja_env.trim_blocks = True
     app.jinja_env.lstrip_blocks = True

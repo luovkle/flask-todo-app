@@ -6,10 +6,12 @@
 #
 
 -i https://pypi.org/simple
-click==8.0.4; python_version >= '3.6'
-flask==2.0.3
-itsdangerous==2.1.1; python_version >= '3.7'
-jinja2==3.0.3; python_version >= '3.6'
-markupsafe==2.1.0; python_version >= '3.7'
+click==8.1.2; python_version >= '3.7'
+flask==2.1.1
+gunicorn==20.1.0
+itsdangerous==2.1.2; python_version >= '3.7'
+jinja2==3.1.1; python_version >= '3.7'
+markupsafe==2.1.1; python_version >= '3.7'
 psycopg2==2.9.3
-werkzeug==2.0.3; python_version >= '3.6'
+setuptools==62.0.0; python_version >= '3.7'
+werkzeug==2.1.1; python_version >= '3.7'
