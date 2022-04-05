@@ -21,7 +21,11 @@ class CRUDTask:
             return task
 
     def create(self, conn, owner_id, title, description):
-        if self.__get_by_title(conn, title):
+        if len(title) > 32:
+            return "Maximum length of the title is 32 characters"
+        elif len(description) > 128:
+            return "Maximum length of the description is 128 characters"
+        elif self.__get_by_title(conn, title):
             return "Title unavailable"
         with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
             sql = """
