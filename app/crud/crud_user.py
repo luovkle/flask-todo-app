@@ -25,9 +25,17 @@ class CRUDUser:
 
     def create(self, conn, username, email, password):
         with conn.cursor() as cur:
-            if not check_email(email):
+            if len(username.split()) > 1:
+                return "Spaces are not allowed in the username"
+            elif len(username) > 32:
+                return "Maximum length of the username is 32 characters"
+            elif len(email) > 64:
+                return "Maximum length of the email is 64 characters"
+            elif len(password) < 12 or len(password) > 256:
+                return "Password must be between 12 and 256 characters"
+            elif not check_email(email):
                 return "Not a valid email address"
-            if self.__get_by_username(conn, username):
+            elif self.__get_by_username(conn, username):
                 return "Username unavailable"
             elif self.__get_by_email(conn, email):
                 return "Email unavailable"
