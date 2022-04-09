@@ -26,11 +26,25 @@ def close_db(e=None):
 def init_db_command():
     db = get_db()
     with db.cursor() as cur:
-        with current_app.open_resource("schema.sql") as f:
-            sql = f.read().decode()
+        sql = """
+        SELECT EXISTS (
+            SELECT FROM
+                pg_tables
+            WHERE
+                schemaname = 'public' AND
+                tablename = 'users'
+        );
+        """
         cur.execute(sql)
-    db.commit()
-    click.echo("Init database")
+        resp = cur.fetchone()
+        if resp[0] is True:
+            click.echo("The database is already initialized")
+        else:
+            with current_app.open_resource("schema.sql") as f:
+                sql = f.read().decode()
+            cur.execute(sql)
+            db.commit()
+            click.echo("The database has been initialized")
 
 
 def init_app(app):
