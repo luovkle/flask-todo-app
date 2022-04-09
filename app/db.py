@@ -47,6 +47,19 @@ def init_db_command():
             click.echo("The database has been initialized")
 
 
+@click.command("reset-db")
+@with_appcontext
+def reset_db_command():
+    db = get_db()
+    with db.cursor() as cur:
+        with current_app.open_resource("schema.sql") as f:
+            sql = f.read().decode()
+        cur.execute(sql)
+    db.commit()
+    click.echo("The database has been reset")
+
+
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+    app.cli.add_command(reset_db_command)
