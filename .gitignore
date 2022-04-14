@@ -8,3 +8,6 @@ Pipfile.lock
 # Environment
 .env
 .venv
+
+# Docker
+docker-compose.override.yml
