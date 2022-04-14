@@ -1,0 +1,10 @@
+# Pipenv
+Pipfile
+Pipfile.lock
+
+# Logs
+*.log
+
+# Environment
+.env
+.venv
