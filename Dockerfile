@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY ./app /todo-app/app
 
+RUN mkdir /todo-app/logs
+
 CMD ["gunicorn", "app.run:app", "--bind", "0.0.0.0:8000"]

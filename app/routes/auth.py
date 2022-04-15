@@ -1,3 +1,4 @@
+import logging
 from functools import wraps
 
 from flask import (
@@ -14,6 +15,8 @@ from flask import (
 from app.crud.crud_user import crud_user
 from app.db import get_db
 from app.utils import check_form_data
+
+logger = logging.getLogger(__name__)
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -53,6 +56,7 @@ def not_required(view):
 @not_required
 def signup():
     if request.method == "POST":
+        logger.info(f"{request.remote_addr} {request.method} {request.path}")
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
@@ -63,6 +67,7 @@ def signup():
             if not err:
                 return redirect(url_for("auth.login"))
         flash(err)
+    logger.info(f"{request.remote_addr} {request.method} {request.path}")
     return render_template("auth/signup.html")
 
 
@@ -70,6 +75,7 @@ def signup():
 @not_required
 def login():
     if request.method == "POST":
+        logger.info(f"{request.remote_addr} {request.method} {request.path}")
         username = request.form.get("username")
         password = request.form.get("password")
         err = check_form_data(username=username, password=password)
@@ -81,11 +87,13 @@ def login():
                 session["user_username"] = username
                 return redirect(url_for("private.index"))
         flash(err)
+    logger.info(f"{request.remote_addr} {request.method} {request.path}")
     return render_template("auth/login.html")
 
 
 @auth_bp.route("/logout")
 @login_required
 def logout():
+    logger.info(f"{request.remote_addr} {request.method} {request.path}")
     session.clear()
     return redirect(url_for("auth.login"))

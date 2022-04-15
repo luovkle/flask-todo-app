@@ -26,8 +26,11 @@ services:
       - 8000:8000
     restart:
       always
+    volumes:
+      - app_logs:/todo-app/logs
     depends_on:
       - db
 
 volumes:
   db_data:
+  app_logs:

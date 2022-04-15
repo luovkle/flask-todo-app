@@ -1,3 +1,5 @@
+import logging
+
 from flask import Blueprint, render_template, g, request, flash, redirect, url_for, abort
 
 from app.routes.auth import login_required
@@ -5,12 +7,15 @@ from app.crud.crud_task import crud_task
 from app.db import get_db
 from app.utils import check_form_data
 
+logger = logging.getLogger(__name__)
+
 private_bp = Blueprint("private", __name__)
 
 
 @private_bp.route("/", methods=["GET"])
 @login_required
 def index():
+    logger.info(f"{request.remote_addr} {request.method} {request.path}")
     user = g.get("user")
     db = get_db()
     tasks = crud_task.read(db, user["id"])
@@ -21,6 +26,7 @@ def index():
 @login_required
 def create():
     if request.method == "POST":
+        logger.info(f"{request.remote_addr} {request.method} {request.path}")
         title = request.form.get("title")
         description = request.form.get("description")
         err = check_form_data(title=title, description=description)
@@ -30,6 +36,7 @@ def create():
             if not err:
                 return redirect(url_for("private.index"))
         flash(err)
+    logger.info(f"{request.remote_addr} {request.method} {request.path}")
     return render_template("private/create.html")
 
 
@@ -37,6 +44,7 @@ def create():
 @login_required
 def update(task_title):
     if request.method == "POST":
+        logger.info(f"{request.remote_addr} {request.method} {request.path}")
         new_title = request.form.get("new_title")
         new_description = request.form.get("new_description")
         err = check_form_data(
@@ -52,6 +60,7 @@ def update(task_title):
             if not err:
                 return redirect(url_for("private.index"))
         flash(err)
+    logger.info(f"{request.remote_addr} {request.method} {request.path}")
     db = get_db()
     task = crud_task.read(db, g.user["id"], task_title)
     if not task:
@@ -65,11 +74,13 @@ def update(task_title):
 @login_required
 def delete(task_title):
     if request.method == "POST":
+        logger.info(f"{request.remote_addr} {request.method} {request.path}")
         db = get_db()
         err = crud_task.delete(db, g.user["id"], task_title)
         if not err:
             return redirect(url_for("private.index"))
         flash(err)
+    logger.info(f"{request.remote_addr} {request.method} {request.path}")
     db = get_db()
     task = crud_task.read(db, g.user["id"], task_title)
     if not task:

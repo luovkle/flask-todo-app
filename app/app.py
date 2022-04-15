@@ -1,3 +1,4 @@
+import logging
 import os
 from secrets import token_urlsafe
 
@@ -6,6 +7,15 @@ from flask import Flask, render_template
 from app import db
 from app.routes.auth import auth_bp
 from app.routes.private import private_bp
+
+
+def configure_logging():
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="[%(asctime)s] %(levelname)-7s %(filename)s:%(lineno)d - %(message)s",
+        filename="logs/app.log",
+    )
+    logging.getLogger("werkzeug").setLevel(logging.INFO)
 
 
 def register_error_handlers(app):
@@ -33,4 +43,5 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(private_bp)
     register_error_handlers(app)
+    configure_logging()
     return app
