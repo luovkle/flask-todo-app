@@ -1,6 +1,15 @@
 import logging
 
-from flask import Blueprint, render_template, g, request, flash, redirect, url_for, abort
+from flask import (
+    Blueprint,
+    render_template,
+    g,
+    request,
+    flash,
+    redirect,
+    url_for,
+    abort,
+)
 
 from app.routes.auth import login_required
 from app.crud.crud_task import crud_task

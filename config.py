@@ -34,7 +34,8 @@ def create_env_file() -> bool:
     if os.path.isfile(".env"):
         print(f"{Color.YELLOW}[•] An .env file already exists.{Color.RESET}")
         overwrite = input(
-            f"{Color.YELLOW}[>] Do you want to overwrite it? {Color.BOLD}[N/y] {Color.RESET}"
+            f"{Color.YELLOW}[>] Do you want to overwrite it? {Color.BOLD}[N/y]"
+            f" {Color.RESET}"
         )
         if overwrite.lower() == "y":
             with open(".env", "w") as env:
