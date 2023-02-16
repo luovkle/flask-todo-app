@@ -2,18 +2,18 @@ import logging
 
 from flask import (
     Blueprint,
-    render_template,
-    g,
-    request,
-    flash,
-    redirect,
-    url_for,
     abort,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    url_for,
 )
 
-from app.routes.auth import login_required
 from app.crud.crud_task import crud_task
 from app.db import get_db
+from app.routes.auth import login_required
 from app.utils import check_form_data
 
 logger = logging.getLogger(__name__)

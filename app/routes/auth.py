@@ -4,12 +4,12 @@ from functools import wraps
 from flask import (
     Blueprint,
     flash,
+    g,
     redirect,
     render_template,
     request,
     session,
     url_for,
-    g,
 )
 
 from app.crud.crud_user import crud_user
